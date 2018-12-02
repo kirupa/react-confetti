@@ -1,12 +1,13 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>It's Confetti Time!</title>
-<style>
+  <title>It's Confetti Time!</title>
+  <style>
     body {
       margin: 0;
     }
+
     h1 {
       font-family: sans-serif;
       color: #CCC;
@@ -14,54 +15,55 @@
     }
   </style>
 </head>
+
 <body>
-<h1>Confetti Generator</h1>
-<canvas id="confetti"></canvas>
-<script>
-	//
-	// Utility Functions
-	//
-	function randomRange(min, max) {
-	  return min + (Math.random() * (max - min));
-	}
-	  
-   	function distance(p0, p1) {
-	  const dx = p1.x - p0.x
-	  const dy = p1.y - p0.y
-	  return Math.sqrt((dx * dx) + (dy * dy));
-	}
+  <h1>Confetti Generator</h1>
+  <canvas id="confetti"></canvas>
+  <script>
+    //
+    // Utility Functions
+    //
+    function randomRange(min, max) {
+      return min + (Math.random() * (max - min));
+    }
 
-	function distanceXY(x0, y0, x1, y1) {
-	  const dx = x1 - x0
-	  const dy = y1 - y0
-	  return Math.sqrt((dx * dx) + (dy * dy));
-	}
+    function distance(p0, p1) {
+      const dx = p1.x - p0.x
+      const dy = p1.y - p0.y
+      return Math.sqrt((dx * dx) + (dy * dy));
+    }
 
-	function circleCollision(c0, c1) {
-	  return distance(c0, c1) <= c0.radius + c1.radius;
-	}
-	  
-	function degreesToRads(degrees) {
-	  return degrees / (180 * Math.PI);
-	}
+    function distanceXY(x0, y0, x1, y1) {
+      const dx = x1 - x0
+      const dy = y1 - y0
+      return Math.sqrt((dx * dx) + (dy * dy));
+    }
 
-	function radsToDegrees(radians) {
-	  return (radians * 180) / Math.PI;
-	}
-	  
- 	function rangeIntersect(min0, max0, min1, max1) {
-	  return Math.max(min0, max0) >= Math.min(min1, max1) &&
-			 Math.min(min0, max0) <= Math.max(min1, max1);
-	}
-	  
-  	function randomInt(min, max) {
+    function circleCollision(c0, c1) {
+      return distance(c0, c1) <= c0.radius + c1.radius;
+    }
+
+    function degreesToRads(degrees) {
+      return degrees / (180 * Math.PI);
+    }
+
+    function radsToDegrees(radians) {
+      return (radians * 180) / Math.PI;
+    }
+
+    function rangeIntersect(min0, max0, min1, max1) {
+      return Math.max(min0, max0) >= Math.min(min1, max1) &&
+        Math.min(min0, max0) <= Math.max(min1, max1);
+    }
+
+    function randomInt(min, max) {
       return min + Math.random() * (max - min);
     }
 
     function clamp(value, min, max) {
       return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
     }
-	  
+
     function roundedRandomInt(min, max) {
       return Math.floor(min + (Math.random() * ((max - min) + 1)));
     }
@@ -104,7 +106,7 @@
       x: 0,
       y: 0
     };
-    
+
     canvas.addEventListener('mousemove', function (e) {
       mouse.x = e.pageX - this.offsetLeft;
       mouse.y = e.pageY - this.offsetTop;
@@ -208,7 +210,7 @@
       context.textAlign = "center";
 
       context.closePath();
-  
+
       if (this.particles.length < this.number) {
         this.particles.push(new particle(clamp(randomInt(this.x, this.w + this.x), this.x, this.w + this.x),
 
@@ -224,7 +226,7 @@
         p.update();
         if (p.y > H || p.y < -100 || p.x > W + 100 || p.x < -100 && this.recycle) {
           this.particles[i] = new particle(clamp(randomInt(this.x, this.w + this.x), this.x, this.w + this.x),
-          	clamp(randomInt(this.y, this.h + this.y), this.y, this.h + this.y), this.text);
+            clamp(randomInt(this.y, this.h + this.y), this.y, this.h + this.y), this.text);
         }
       }
     }
@@ -248,7 +250,7 @@
     function update() {
       generator.number = numberOfParticles;;
 
-      context.fillStyle = "white"; 
+      context.fillStyle = "white";
       context.clearRect(0, 0, W, H);
       generator.animate();
       requestAnimationFrame(update);
@@ -261,4 +263,5 @@
     update();
   </script>
 </body>
+
 </html>
